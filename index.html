@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vigenere</title>
+
+  <style type="text/css">
+    #main {
+      width:1150px;
+      margin: 30px auto;
+    }
+    #leftBar, #mid, #rightBar {
+      float: left;
+      margin-right: 20px;
+    }
+    #mid {width: 250px; margin-top: 50px;text-align: center;}
+    #mid *{margin-top: 10px;}
+    #plaintext,#ciphertext {
+      width: 410px;
+      height: 500px;
+    }
+    .cf:before,
+    .cf:after {
+        content: " "; /* 1 */
+        display: table; /* 2 */
+    }
+
+    .cf:after {
+        clear: both;
+    }
+    .cf {
+        *zoom: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="main" class="cf">
+    <div id="leftBar">
+      <div>明文:</div>
+      <textarea id="plaintext"></textarea>
+    </div>
+    <div id="mid">
+      密钥:
+      <input type="text" id="key"><br>
+      <button type="button" id="encryption">加密></button><br>
+      <button type="button" id="decryption1"><有密钥解密</button><br>
+      <button type="button" id="decryption2"><无密钥解密</button><br>
+      <div id="best_key"></div>
+    </div>
+    <div id="rightBar">
+      <div>密文:</div>
+      <textarea id="ciphertext"></textarea>
+    </div>
+  </div>
+
+<script type="text/javascript" src="js/demo.js"></script>
+</body>
+</html>
