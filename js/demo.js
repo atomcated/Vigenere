@@ -49,36 +49,38 @@ function deVigenere (argument) {
 function deVigenereAuto (arguments) {
     console.log("autokey");
     var ciphertext = $("ciphertext").value;
-    var best_key="", best_len;
+    var best_len = parseInt($("keyLen").value);
+    var best_key = "";
     var count = [];
     var cipherMin = ciphertext.toLowerCase().replace(/[^a-z]/g, "");
     var freq = [8.167,1.492,2.782,4.253,12.702,2.228,2.015,6.094,6.966,0.153,0.772,4.025,2.406,6.749,7.507,1.929,0.095,5.987,6.327,9.056,2.758,0.978,2.360,0.150,1.974,0.074];
-
-    for (var keyLen = 3; keyLen < 13; keyLen++) {  //猜测key长度3————12
-        var sum = 0;
-        for (var j = 0; j < keyLen; j++) {
-            for (var i=0; i<26; i++) {
-                count[i] = 0;
-            }
-            for (var i = j; i < cipherMin.length; i+=keyLen) {
-                count[cipherMin[i].charCodeAt(0)-97] += 1;
-            }
-            var ic = 0;
-            var num = cipherMin.length/keyLen;
-            for (var i = 0; i < count.length; i++) {
-                ic += Math.pow(count[i]/num,2);
-            }
-            sum += ic;
-            // console.log(keyLen,ic);
-        }console.log(sum/keyLen);
-        if(sum/keyLen > 0.065)break;  //确定密钥长度
+    if(!best_len) {
+        for(var best_len = 3; best_len < 13; best_len++) {  //猜测key长度3————12
+            var sum = 0;
+            for (var j = 0; j < best_len; j++) {
+                for (var i=0; i<26; i++) {
+                    count[i] = 0;
+                }
+                for (var i = j; i < cipherMin.length; i+=best_len) {
+                    count[cipherMin[i].charCodeAt(0)-97] += 1;
+                }
+                var ic = 0;
+                var num = cipherMin.length/best_len;
+                for (var i = 0; i < count.length; i++) {
+                    ic += Math.pow(count[i]/num,2);
+                }
+                sum += ic;
+                // console.log(keyLen,ic);
+            }console.log(sum/best_len);
+            if(sum/best_len > 0.065)break;  //确定密钥长度
+        }
     }
-    console.log(keyLen)
-    for (var j = 0; j < keyLen; j++) {
+    console.log(best_len)
+    for (var j = 0; j < best_len; j++) {
         for (var i=0; i<26; i++) {
             count[i] = 0;
         }
-        for (var i = j; i < cipherMin.length; i+=keyLen) {
+        for (var i = j; i < cipherMin.length; i+=best_len) {
             count[cipherMin[i].charCodeAt(0)-97] += 1;
         }
         var max_dp = -1000000;
